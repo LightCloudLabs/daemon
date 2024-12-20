@@ -5,16 +5,22 @@ Light Daemon is the daemon for the Light Panel.
 
 ## Installation
 1. Clone the repository:
-`git clone https://github.com/LightCloudLabs/daemon.git`
+```bash
+git clone https://github.com/LightCloudLabs/daemon.git
+```
 
-2. Install dependencies:
-`npm install`
+3. Install dependencies:
+```bash
+npm install
+```
 
-3. Configure LightDAEMON:
+5. Configure LightDAEMON:
 - Get your Panel's access key from the Light panel's config.json file and set it as 'remoteKey'. Do the same for the other way, set your Aird access key and configure it on the Panel.
 
 4. Start the Daemon:
-`node . # or use pm2 to keep it online`
+```bash
+node . # or use pm2 to keep it online
+```
 
 ## Configuration
 Configuration settings can be adjusted in the `config.json` file. This includes the authentication key for API access.
