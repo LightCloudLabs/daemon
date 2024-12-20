@@ -19,8 +19,10 @@ npm install
 
 4. Start the Daemon:
 ```bash
-node . # or use pm2 to keep it online
+node .
 ```
+(or use pm2 to keep it online)
+
 
 ## Configuration
 Configuration settings can be adjusted in the `config.json` file. This includes the authentication key for API access.
