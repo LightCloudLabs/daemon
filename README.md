@@ -3,6 +3,26 @@
 ## Overview
 Light Daemon is the daemon for the Light Panel.
 
+# Dependencies
+* Docker Service.
+
+# Dependencies Installation
+1. Install Docker:
+```bash
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install docker docker.io docker-compose -y
+```
+2. Check Docker Service Status:
+```bash
+sudo systemctl status docker.service
+```
+(if If Shows <your hostname> started docker.service Then Nothing To Start!!)
+3. Start Docker Service:
+```bash
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+```
+
 ## Installation
 1. Clone the repository:
 ```bash
