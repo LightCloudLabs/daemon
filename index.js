@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Main entry file for the Hydra Daemon. This module sets up an
+ * @fileoverview Main entry file for the Light Daemon. This module sets up an
  * Express server integrated with Docker for container management and WebSocket for real-time communication.
  * It includes routes for instance management, deployment, and power control, as well as WebSocket endpoints
  * for real-time container stats and logs. Authentication is enforced using basic authentication.
@@ -172,7 +172,7 @@ function initializeWebSocketServer(server) {
         function authenticateWebSocket(ws, req, password, callback) {
             if (password === config.key) {
                 log.info('successful authentication on ws');
-                ws.send(`\r\n\u001b[33m[HydraD] \x1b[0mconnected!\r\n`);
+                ws.send(`\r\n\u001b[33m[LightD] \x1b[0mconnected!\r\n`);
                 const urlParts = req.url.split('/');
                 const containerId = urlParts[2];
                 const volumeId = urlParts[3] || 0;
@@ -226,8 +226,8 @@ function initializeWebSocketServer(server) {
                 if (isAuthenticated) {
                     const command = JSON.parse(msg).command;
                     
-                    if (command === "HydraCredits") {
-                        ws.send("ma4z, sryden, matt james, privt");
+                    if (command === "LightCredits") {
+                        ws.send("zenpaizombie, ma4z, sryden, matt james, privt");
                     } else if (command) {
                         executeCommand(ws, container, command);
                     }
@@ -290,7 +290,7 @@ function initializeWebSocketServer(server) {
                 });
         
                 stream.on('end', () => {
-                    ws.send('\u001b[1m\u001b[33mcontainer@hydra~ \u001b[0mServer marked as Offline\r\n');
+                    ws.send('\u001b[1m\u001b[33mcontainer@light~ \u001b[0mServer marked as Offline\r\n');
                 });
         
                 stream.on('error', (err) => {
@@ -315,17 +315,17 @@ function initializeWebSocketServer(server) {
             };
         
             if (!actionMap[action]) {
-                ws.send(`\r\n\u001b[33m[HydraD] \x1b[0Invalid action: ${action}\r\n`);
+                ws.send(`\r\n\u001b[33m[LightD] \x1b[0Invalid action: ${action}\r\n`);
                 return;
             }
         
-            ws.send(`\r\n\u001b[33m[HydraD] \x1b[0mWorking on ${action}...\r\n`);
+            ws.send(`\r\n\u001b[33m[LightD] \x1b[0mWorking on ${action}...\r\n`);
         
             try {
                 await actionMap[action]();
             } catch (err) {
                 console.error(`Error performing ${action} action:`, err);
-                ws.send(`\r\n\u001b[33m[HydraD] \x1b[0Action failed: ${err.message}\r\n`);
+                ws.send(`\r\n\u001b[33m[LightD] \x1b[0Action failed: ${err.message}\r\n`);
             }
         }
 
@@ -386,7 +386,7 @@ app.get('/', async (req, res) => {
         // Prepare the response object with Docker status
         const response = {
             versionFamily: 1,
-            versionRelease: 'HydraD ' + config.version,
+            versionRelease: 'LightD ' + config.version,
             online: true,
             remote: config.remote,
             mysql: {
@@ -403,7 +403,7 @@ app.get('/', async (req, res) => {
         res.json(response); // the point of this? just use the ws - yeah conn to the ws on nodes page and send that json over ws
     } catch (error) {
         console.error('Error fetching Docker status:', error);
-        res.status(500).json({ error: 'Docker is not running - HydraD will not function properly.' });
+        res.status(500).json({ error: 'Docker is not running - LightD will not function properly.' });
     }
 });
 
@@ -420,6 +420,6 @@ app.use((err, req, res, next) => {
 const port = config.port;
 setTimeout(function (){
   server.listen(port, () => {
-    log.info('HydraD is listening on port ' + port);
+    log.info('LightD is listening on port ' + port);
   });
 }, 2000);
