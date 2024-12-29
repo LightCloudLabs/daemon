@@ -1,4 +1,4 @@
 const Keyv = require('keyv');
-const db = new Keyv('sqlite://AirDaemon.db');
+const db = new Keyv('sqlite://LightDaemon.db');
 
 module.exports = { db }
